@@ -36,21 +36,24 @@ app.get('/', (req, res) => {
 // Send notification endpoint
 app.post('/send', async (req, res) => {
     try {
-        const { waterLevel, changeCm } = req.body;
+        let { waterLevel, changeCm } = req.body;
         
-        if (!waterLevel) {
-            return res.status(400).json({ error: 'waterLevel is required' });
+        // Remove leading apostrophe from changeCm if present
+        if (changeCm) {
+            changeCm = changeCm.replace(/^'/, '');
         }
         
-        const arrow = getArrow(changeCm);
+        let arrow = '●';
+        if (changeCm && changeCm.includes('+')) arrow = '▲';
+        else if (changeCm && changeCm.includes('-')) arrow = '▼';
         
         const payload = JSON.stringify({
             title: '🚤 InfoBåten',
             body: `📊 ${waterLevel} moh ${arrow} ${changeCm || '0 cm'}`,
-            icon: 'https://vorenus70.github.io/infobaaten_development/app/icons/icon-192.png',
-            badge: 'https://vorenus70.github.io/infobaaten_development/app/icons/icon-32.png',
-            data: { url: 'https://vorenus70.github.io/infobaaten_development/app/' }
+            icon: '/app/icons/icon-192.png',
+            badge: '/app/icons/icon-32.png'
         });
+ 
         
         // Get all subscriptions
         const { data: subscriptions, error } = await supabase
