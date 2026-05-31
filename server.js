@@ -38,9 +38,10 @@ app.post('/send', async (req, res) => {
     try {
         let { waterLevel, changeCm } = req.body;
         
-        // Remove leading apostrophe from changeCm if present
+        // Clean the changeCm value
+        let cleanChangeCm = '0 cm';
         if (changeCm) {
-            changeCm = changeCm.replace(/^'/, '');
+            cleanChangeCm = changeCm.replace(/^'/, '').replace(/^\+/, '');
         }
         
         let arrow = '●';
@@ -49,7 +50,7 @@ app.post('/send', async (req, res) => {
         
         const payload = JSON.stringify({
             title: '🚤 InfoBåten',
-            body: `📊 ${waterLevel} moh ${arrow} ${changeCm || '0 cm'}`,
+            body: `📊 ${waterLevel} moh ${arrow} ${cleanChangeCm}`,
             icon: '/app/icons/icon-192.png',
             badge: '/app/icons/icon-32.png'
         });
