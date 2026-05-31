@@ -93,6 +93,55 @@ app.post('/send', async (req, res) => {
     }
 });
 
+// Broadcast custom message to all subscribers
+app.post('/broadcast', async (req, res) => {
+    try {
+        let { title, message, icon } = req.body;
+        
+        // Set defaults if not provided
+        title = title || '📢 InfoBåten';
+        message = message || 'Ny melding fra InfoBåten';
+        icon = icon || 'https://vorenus70.github.io/infobaaten_development/app/icons/icon-192.png';
+        
+        const payload = JSON.stringify({
+            title: title,
+            body: message,
+            icon: icon,
+            badge: '/app/icons/icon-32.png',
+            data: { url: '/app/' }
+        });
+        
+        const { data: subscriptions } = await supabase
+            .from('subscriptions')
+            .select('*');
+        
+        if (!subscriptions || subscriptions.length === 0) {
+            return res.json({ success: true, message: 'No subscribers', sent: 0 });
+        }
+        
+        let sent = 0;
+        for (const sub of subscriptions) {
+            try {
+                await webpush.sendNotification({
+                    endpoint: sub.endpoint,
+                    keys: sub.keys
+                }, payload);
+                sent++;
+            } catch (err) {
+                if (err.statusCode === 410) {
+                    await supabase.from('subscriptions').delete().eq('id', sub.id);
+                }
+            }
+        }
+        
+        res.json({ success: true, sent, total: subscriptions.length });
+        
+    } catch (error) {
+        console.error('Broadcast error:', error);
+        res.status(500).json({ error: error.message });
+    }
+});
+
 // Teaser endpoint (for testing)
 app.post('/teaser', async (req, res) => {
     try {
