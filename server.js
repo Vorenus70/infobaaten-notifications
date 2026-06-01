@@ -36,6 +36,7 @@ function getArrow(changeCm) {
 
 // Health check
 app.get('/', (req, res) => {
+    console.log(`✅ Keep-alive ping at ${new Date().toISOString()}`);
     res.json({ status: 'ok', message: 'InfoBåten notification server running' });
 });
 
