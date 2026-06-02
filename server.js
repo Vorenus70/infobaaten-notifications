@@ -54,7 +54,7 @@ app.post('/send', async (req, res) => {
         let arrow = getArrow(changeCm);
         
         const payload = JSON.stringify({
-            title: '🚤 InfoBåten',
+            title: '🚤 InfoBåten-Vannstand',
             body: `📊 ${waterLevel} moh ${arrow} ${cleanChangeCm}`,
             icon: 'https://vorenus70.github.io/infobaaten_development/app/icons/icon-192.png',
             badge: 'https://vorenus70.github.io/infobaaten_development/app/icons/icon-32.png',
