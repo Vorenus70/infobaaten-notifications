@@ -19,7 +19,7 @@ app.use((req, res, next) => {
 // ========== CONFIGURATION ==========
 const SUPABASE_URL = 'https://pcvfwioshtxuctjcgkrr.supabase.co';
 const SUPABASE_SERVICE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBjdmZ3aW9zaHR4dWN0amNna3JyIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3OTA0MTk1OCwiZXhwIjoyMDk0NjE3OTU4fQ.6CulELlIzEPXRLNE-batvh4wryfwa3z5mkjYIde2EcI';  // ← Paste your key
-
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBjdmZ3aW9zaHR4dWN0amNna3JyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkwNDE5NTgsImV4cCI6MjA5NDYxNzk1OH0.5OydO9ELHHwVWMp4gbSDSIXx-wAE4pB8F8H0ivDVXB4';
 const VAPID_PUBLIC_KEY = 'BH4O1gp4MkNjuT-SnMa3rQ3n8kp67QHYvhpY0i94tSV-digb0FOptai4JGbvb4BiCvfTTDci0igHq0oFhBap_IA';
 const VAPID_PRIVATE_KEY = 'FANF1ONABZfLHjruDm03zW1ichQJNJajwqyiuwCFHq0';
 
