@@ -24,7 +24,7 @@ const VAPID_PUBLIC_KEY = 'BH4O1gp4MkNjuT-SnMa3rQ3n8kp67QHYvhpY0i94tSV-digb0FOpta
 const VAPID_PRIVATE_KEY = 'FANF1ONABZfLHjruDm03zW1ichQJNJajwqyiuwCFHq0';
 
 webpush.setVapidDetails('mailto:post@infobaaten.no', VAPID_PUBLIC_KEY, VAPID_PRIVATE_KEY);
-const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_KEY);
+const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // Helper function to get arrow
 function getArrow(changeCm) {
